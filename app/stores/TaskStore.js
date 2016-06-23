@@ -20,8 +20,16 @@ class TaskStore {
       })
 
   }
-  create() {
-
+  create(task) {
+    let _this = this;
+    const tasks = this.tasks;
+    $.post("https://todoz.stamplayapp.com/api/cobject/v1/task", task)
+      .then(function(res) {
+        let task = res.data;
+        _this.setState({
+          tasks : tasks.concat(task)
+        })
+      })
   }
   update() {
 
