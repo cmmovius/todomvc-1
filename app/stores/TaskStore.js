@@ -32,10 +32,35 @@ class TaskStore {
       })
   }
   update() {
+    let _this = this;
+    const tasks = this.tasks;
+    const taskIndex = this.findTask(id);
 
+    if(taskIndex < 0) { return }
+
+    $.put("https://todoz.stamplayapp.com/api/cobject/v1/task" + id, { task : task })
+      .then(function(res) {
+        console.info("Updated", id);
+      }, function(err) {
+        console.err("Error updating :", id, err);
+      })
+
+    tasks[taskIndex].task = task;
+
+    this.setState({
+      tasks : tasks
+    })
   }
   delete() {
 
+  }
+  findTask(id) {
+    const tasks = this.tasks;
+    const taskIndex = task.findIndex((task) => task.id === id);
+    if(taskIndex < 0) {
+      console.warn("Failed to find task", tasks, id);
+    }
+    return taskIndex;
   }
 }
 

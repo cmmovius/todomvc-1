@@ -27,13 +27,18 @@ export default class App extends React.Component {
     return (
       <div>
         <button onClick={this.addTask}>Add Task</button>
-        <Tasks items={tasks}/>
+        <Tasks items={tasks}
+                onUpdate={this.updateTask} />
       </div>
     )
   }
 
   addTask = () => {
     TaskActions.create({ task : "New Task (Click to Edit)"})
+  }
+
+  updateTask = (id, task) => {
+    TaskActions.update({ id, task })
   }
 
 }
